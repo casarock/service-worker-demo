@@ -4,7 +4,6 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         // Cache static
         caches.open(CACHE_NAME_STATIC).then(function(cache) {
-
             return cache.addAll([
                 '/webpage.html',
                 '/css/',
@@ -27,6 +26,7 @@ self.addEventListener('activate', function(event) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
                     console.log("Found: ", cacheName);
+                    // Clean up unused caches!
                     if (cacheWhitelist.indexOf(cacheName) === -1) {
                         return caches.delete(cacheName);
                     }
@@ -38,10 +38,17 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', function(event) {
     var requestURL = new URL(event.request.url);
-
+    // You may do some foo with requestURL
+    // e.g. only cache js/html and not images etc.
     event.respondWith(returnFromCacheOrFetch(event.request));
 });
 
+/**
+    Return from cache if entry exists.
+    Otherwise cache page or update cache, when online
+
+    If offline return offline page!
+*/
 function returnFromCacheOrFetch(request) {
     const cachePromise = caches.open(CACHE_NAME_STATIC);
     const matchPromise = cachePromise.then(function(cache) {
