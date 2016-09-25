@@ -1,4 +1,4 @@
-var CACHE_NAME_STATIC = 'code.talker-v1';
+const CACHE_NAME_STATIC = 'code.talks-v01';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -65,7 +65,6 @@ function returnFromCacheOrFetch(request) {
             // return the cached response if we have it, otherwise the result of the fetch.
         return cacheResponse || fetchPromise;
     }).catch(function(error) {
-        console.log("error");
         return caches.open(CACHE_NAME_STATIC).then(function(cache) {
             return cache.match('offline.html');
         });
