@@ -1,4 +1,4 @@
-const CACHE_NAME_STATIC = 'code.talks-v01';
+const CACHE_NAME_STATIC = 'webtechcon-v01';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
