@@ -1,4 +1,4 @@
-const CACHE_NAME_STATIC = 'webtechcon-v01';
+var CACHE_NAME_STATIC = 'webtechcon-v01';
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -6,9 +6,12 @@ self.addEventListener('install', function(event) {
         caches.open(CACHE_NAME_STATIC).then(function(cache) {
             return cache.addAll([
                 '/webpage.html',
-                '/css/',
-                '/css/layouts/',
-                '/img/',
+                '/css/grids-responsive-min.css',
+                '/css/pure.min.css',
+                '/img/common/andrew-avatar.png',
+                '/img/common/ericf-avatar.png',
+                '/img/common/reid-avatar.png',
+                '/img/common/tilo-avatar.png',
                 '/js/app.js',
                 'offline.html'
             ]);
